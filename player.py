@@ -42,6 +42,9 @@ class Player:
     
     def take_decision(self,time):
             # implement your policy here
+            
+            # Voici un nouveau changement essentiel à ce script !
+            
             return 0
         
     def compute_load(self,time,demand):
