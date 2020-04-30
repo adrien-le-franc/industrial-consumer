@@ -11,25 +11,41 @@ class Player:
         self.load= np.zeros(48) # chargement de la batterie (li)
         self.battery_stock = np.zeros(49) #a(t)
         self.capacity = 100
-        self.max_load = 50
+        self.max_load = 100
         self.prices = {"internal" : [],"external_purchase" : [],"external_sale" : []}
         self.imbalance=[]
 
+    def take_decision(self,time):
+        
+        # TO DO:
+        # implement your policy here to return the load charged / discharged in the battery
+        # below is a simple example  
+            
+        if time>10 and time<32:
+            if self.prices["internal"][time-1]*1.5 < self.prices["external_purchase"][time-1]:
+                return +20
+            else :
+                return(+10)                    
+        else:
+            return +15
+
     def update_battery_stock(self,time,load):
         
-#If the battery isn't enough powerful, the battery load is set to the battery maximum power.
+        #If the battery isn't enough powerful, the battery load is set to the battery maximum power.
 
             if abs(load) > self.max_load:
                 load = self.max_load*np.sign(load) 
             new_stock = self.battery_stock[time] + (self.efficiency*max(0,load) - 1/self.efficiency * max(0,-load))*self.dt
             
-#If the battery isn't full enough to provide such amount of electricity, the latter is set to the maximum amount the battery can provide, the load is adjusted.
+        #If the battery isn't full enough to provide such amount of electricity, 
+        #the latter is set to the maximum amount the battery can provide, the load is adjusted.
             
             if new_stock < 0: 
                 load = - self.battery_stock[time] / (self.efficiency*self.dt)
                 new_stock = 0
     
- #If the amount of electricity purchased outgrows the maximum battery capacity, enough electricity to fill up the battery is purchased, the load is adjusted.   
+        #If the amount of electricity purchased outgrows the maximum battery capacity, 
+        #enough electricity to fill up the battery is purchased, the load is adjusted.   
     
             elif new_stock > self.capacity:
                 load = (self.capacity - self.battery_stock[time]) / (self.efficiency*self.dt)
@@ -37,15 +53,7 @@ class Player:
     
             self.battery_stock[time+1] = new_stock
             
-            
             return load
-    
-    def take_decision(self,time):
-            # implement your policy here
-            
-            # Voici un nouveau changement essentiel à ce script !
-            
-            return 0
         
     def compute_load(self,time,demand):
         load_player = self.take_decision(time)
@@ -67,8 +75,11 @@ class Player:
     def reset(self):
         self.load= np.zeros(48)
         self.bill = np.zeros(48)
+        
+        last_bat = self.battery_stock[-1]
         self.battery_stock = np.zeros(49)
+        self.battery_stock[0] = last_bat
+        
         self.demand=[]
         self.prices = {"internal" : [],"external_purchase" : [],"external_sale" : []}
         self.imbalance=[]
-    
