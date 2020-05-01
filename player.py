@@ -22,9 +22,12 @@ class Player:
         # below is a simple example  
             
         if time>10 and time<32:
-            return -10
+            if self.prices["internal"][time-1]*1.5 < self.prices["external_purchase"][time-1]:
+                return +20
+            else :
+                return(+10)                    
         else:
-            return +20
+            return +15
 
     def update_battery_stock(self,time,load):
         
@@ -80,4 +83,4 @@ class Player:
         self.demand=[]
         self.prices = {"internal" : [],"external_purchase" : [],"external_sale" : []}
         self.imbalance=[]
-    
+
