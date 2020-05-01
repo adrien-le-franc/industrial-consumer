@@ -83,3 +83,4 @@ class Player:
         self.demand=[]
         self.prices = {"internal" : [],"external_purchase" : [],"external_sale" : []}
         self.imbalance=[]
+
