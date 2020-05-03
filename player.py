@@ -11,7 +11,7 @@ class Player:
         self.load= np.zeros(48) # chargement de la batterie (li)
         self.battery_stock = np.zeros(49) #a(t)
         self.capacity = 100
-        self.max_load = 100
+        self.pmax = 100
         self.prices = {"internal" : [],"external_purchase" : [],"external_sale" : []}
         self.imbalance=[]
 
@@ -33,8 +33,8 @@ class Player:
         
         #If the battery isn't enough powerful, the battery load is set to the battery maximum power.
 
-            if abs(load) > self.max_load:
-                load = self.max_load*np.sign(load) 
+            if abs(load) > self.pmax:
+                load = self.pmax*np.sign(load) 
             new_stock = self.battery_stock[time] + (self.efficiency*max(0,load) - 1/self.efficiency * max(0,-load))*self.dt
             
         #If the battery isn't full enough to provide such amount of electricity, 
