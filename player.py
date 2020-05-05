@@ -12,20 +12,20 @@ class Player:
         self.battery_stock = np.zeros(49) #a(t)
         self.capacity = 100
         self.pmax = 100
-        self.prices = {"internal" : [],"external_purchase" : [],"external_sale" : []}
-        self.imbalance=[]
+        self.prices = {"purchase" : [],"sale" : []}
+        self.imbalance={"purchase_cover":[], "sale_cover": []}
 
     def take_decision(self,time):
         
         # TO DO:
-        # implement your policy here to return the load charged / discharged in the battery
+        # implement your policy here to return the load charged / discharged in the battery between -pmax and pmax
         # below is a simple example  
             
         if time>10 and time<32:
-            if self.prices["internal"][time-1]*1.5 < self.prices["external_purchase"][time-1]:
+            if self.prices["purchase"][time-1] < 0.06:
                 return +20
             else :
-                return(+10)                    
+                return +10                    
         else:
             return +15
 
@@ -65,11 +65,11 @@ class Player:
     def observe(self, t, demand, price, imbalance):
         self.demand.append(demand)
         
-        self.prices["internal"].append(price["internal"])
-        self.prices["external_sale"].append(price["external_sale"])
-        self.prices["external_purchase"].append(price["external_purchase"])
-        
-        self.imbalance.append(imbalance)
+        self.prices["purchase"].append(price["purchase"])
+        self.prices["sale"].append(price["sale"])
+
+        self.imbalance["purchase_cover"].append(imbalance["purchase_cover"])
+        self.imbalance["sale_cover"].append(imbalance["sale_cover"])
         
     
     def reset(self):
@@ -81,6 +81,6 @@ class Player:
         self.battery_stock[0] = last_bat
         
         self.demand=[]
-        self.prices = {"internal" : [],"external_purchase" : [],"external_sale" : []}
-        self.imbalance=[]
+        self.prices = {"purchase" : [],"sale" : []}
+        self.imbalance={"purchase_cover":[], "sale_cover": []}
 
