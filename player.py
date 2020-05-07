@@ -26,7 +26,7 @@ class Player:
                 return +23
             else :
                 return +3 
-        elif time>12 and time<44:
+        elif time>11 and time<44:
             if self.prices["purchase"][time-1] < 0.06:
                 return +10
             else :
