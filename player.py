@@ -30,7 +30,7 @@ class Player:
             if self.prices["purchase"][time-1] < 0.06:
                 return +10
             else :
-                return -25                    
+                return -28                    
         else :
             return +20
 
