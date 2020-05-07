@@ -22,7 +22,7 @@ class Player:
         # below is a simple example  
             
         if time>24 and time<32:
-            if self.prices["purchase"][time-1] < 0.06:
+            if self.prices["purchase"][time-1] < 0.075:
                 return +20
             else :
                 return +0 
