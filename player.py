@@ -21,12 +21,17 @@ class Player:
         # implement your policy here to return the load charged / discharged in the battery between -pmax and pmax
         # below is a simple example  
             
-        if time>10 and time<32:
+        if time>24 and time<32:
             if self.prices["purchase"][time-1] < 0.06:
                 return +20
             else :
-                return +10                    
-        else:
+                return +15  
+        elif time>12 and time<44:
+            if self.prices["purchase"][time-1] < 0.06:
+                return +15
+            else :
+                return +5                    
+        else :
             return +15
 
     def update_battery_stock(self,time,load):
