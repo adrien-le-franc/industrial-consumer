@@ -16,7 +16,7 @@ class Player:
         self.imbalance={"purchase_cover":[], "sale_cover": []}
 
     def take_decision(self,time):
-        
+        #essai_verif
         # TO DO:
         # implement your policy here to return the load charged / discharged in the battery between -pmax and pmax
         # below is a simple example  
