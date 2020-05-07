@@ -25,14 +25,14 @@ class Player:
             if self.prices["purchase"][time-1] < 0.06:
                 return +20
             else :
-                return +10  
+                return +0 
         elif time>12 and time<44:
             if self.prices["purchase"][time-1] < 0.06:
                 return +10
             else :
                 return -20                    
         else :
-            return +15
+            return +20
 
     def update_battery_stock(self,time,load):
         
