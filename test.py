@@ -14,6 +14,7 @@ for t in range(48):
     assert industrial_consumer.battery_stock[t] <= industrial_consumer.capacity
     data = {"purchase" : 0.06 ,"sale" : 0.03}
     imbalance = {"purchase_cover" : 0.5 , "sale_cover" : 1}
-    industrial_consumer.observe(t,demand,data,imbalance)
+    relative_grid_load=100
+    industrial_consumer.observe(t,demand,data,imbalance,relative_grid_load)
 
 print('test passed')
